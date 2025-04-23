@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Lista de Productos</title>
+  <style>
+    #product-list {
+      max-width: 600px;
+      margin: 0 auto;
+      padding: 20px;
+    }
+
+    .product-item {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background: #f9f9f9;
+      border: 1px solid #ddd;
+      margin-bottom: 10px;
+      padding: 10px 15px;
+      border-radius: 6px;
+    }
+
+    .share-btn {
+      background-color: #007bff;
+      color: white;
+      border: none;
+      padding: 6px 12px;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+
+    .share-btn:hover {
+      background-color: #0056b3;
+    }
+  </style>
+</head>
+<body>
+
+  <div id="product-list">
+    <div class="product-item">
+      <span class="product-name">Celular Xio</span>
+      <button class="share-btn"
+              data-url="https://tutienda.com/productos/celular-xio"
+              data-title="Celular Xio">
+        Compartir 🔗
+      </button>
+    </div>
+
+    <div class="product-item">
+      <span class="product-name">Tablet Zeno</span>
+      <button class="share-btn"
+              data-url="https://tutienda.com/productos/tablet-zeno"
+              data-title="Tablet Zeno">
+        Compartir 🔗
+      </button>
+    </div>
+
+    <div class="product-item">
+      <span class="product-name">Laptop Airo</span>
+      <button class="share-btn"
+              data-url="https://tutienda.com/productos/laptop-airo"
+              data-title="Laptop Airo">
+        Compartir 🔗
+      </button>
+    </div>
+  </div>
+
+  <script>
+    document.addEventListener("DOMContentLoaded", function () {
+      const shareButtons = document.querySelectorAll(".share-btn");
+
+      shareButtons.forEach((btn) => {
+        btn.addEventListener("click", async () => {
+          const title = btn.getAttribute("data-title");
+          const url = btn.getAttribute("data-url");
+
+          if (navigator.share) {
+            try {
+              await navigator.share({
+                title: title,
+                text: `Mira este producto: ${title}`,
+                url: url,
+              });
+              console.log("Compartido con éxito");
+            } catch (err) {
+              console.error("Error al compartir", err);
+            }
+          } else {
+            alert("Este navegador no soporta la función de compartir nativa.");
+          }
+        });
+      });
+    });
+  </script>
+
+</body>
+</html>
