@@ -1,0 +1,33 @@
+<button class="btn share-btn"
+                                            data-anuncio="50"
+                                            data-url="url_anuncio"
+                                            data-title="anuncio.name"
+                                            ><i class="fas fa-share-alt"></i></button>
+<div class="custom-share-menu" id="'share-menu' + 50">
+	<button id="'share-copy' + 50"><i class="fas fa-copy"></i> Copiar</button>
+</div>
+
+<script>
+                            document.addEventListener("DOMContentLoaded", function () {
+                            document.querySelectorAll(".share-btn").forEach((btn) => {
+                              btn.addEventListener("click", async () => {
+                                const url = btn.getAttribute("data-url");
+                                const anuncio = btn.getAttribute("data-anuncio");
+                                var menu = document.getElementById('share-menu' + anuncio);
+                                const copyBtn = document.getElementById('share-copy' + anuncio);
+
+                                  if (!menu || !copyBtn) {
+                                    console.error("Menú o botón de copia no encontrado para anuncio", anuncio);
+                                    return;
+                                  }
+
+                                  copyBtn.onclick = async () => {
+                                    try {
+                                      await navigator.clipboard.writeText(url);
+                                      alert("Enlace copiado al portapapeles");
+                                    } catch (e) {
+                                      alert("No se pudo copiar el enlace");
+                                      console.error("Error al compartir", e);
+                                    }
+                                  };
+                                  </script>
